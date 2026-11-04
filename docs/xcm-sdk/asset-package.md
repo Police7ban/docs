@@ -50,6 +50,10 @@ If you already have the SDK installed, you can directly import the functionality
 ## Query asset paths
 The following query lets you query paths that should be supported for a specific asset related to the origin chain. Function uses [TChain](https://paraspell.github.io/docs/xcm-sdk/asset-package.html#import-chains-as-types) types.
 
+::: warning
+This query is only informative. It checks whether the asset is supported on the destination chains, but it does not yet check whether HRMP channels are open between them. To make sure your transfer will succeed, please always verify it with [dry run](https://paraspell.github.io/docs/xcm-sdk/send-xcm.html#dry-run) or [dry run preview](https://paraspell.github.io/docs/xcm-sdk/send-xcm.html#dry-run-preview).
+:::
+
 ```ts
 getSupportedDestinations(TChain, CURRENCY)
 ```

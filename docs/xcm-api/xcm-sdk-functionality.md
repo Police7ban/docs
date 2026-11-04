@@ -2626,6 +2626,10 @@ console.log(response) //use response data as necessary
 ### Query asset paths
 The following endpoint allows you to query the asset paths related to origin chain.
 
+::: warning
+This query is only informative. It checks whether the asset is supported on the destination chains, but it does not yet check whether HRMP channels are open between them. To make sure your transfer will succeed, please always verify it with [dry run](https://paraspell.github.io/docs/xcm-api/xcm-sdk-functionality.html#dry-run) or [dry run preview](https://paraspell.github.io/docs/xcm-api/xcm-sdk-functionality.html#dry-run-preview).
+:::
+
 **Endpoint**: `POST /v2/assets/:chain/supported-destinations`
 
   ::: details Currency spec options
