@@ -171,7 +171,15 @@ The following are not accepted as a minimal reproduction:
 
 If you found the bug by reading internal code, please still reproduce it through a public interface. You're welcome to mention the internal function you think causes it.
 
-Bugs in the XCM Playground and errors in the docs can't always be shown in code. For the Playground, please list the exact steps and inputs that trigger the bug, and add a screenshot or a short screen recording. For the docs, a link to the page and a quote of the incorrect text are enough.
+Bugs in the XCM Playground and errors in the docs can't always be shown in code.
+
+For the Playground, please list the exact steps and inputs that trigger the bug, and add a screenshot or a short screen recording. The Playground saves your inputs in the page URL, so you can also share the URL of the failed transfer or query. For example:
+
+```text
+https://playground.paraspell.xyz/xcm-sdk/xcm-transfer?currencies={%22currencyOptionId%22:%22ASTR-NO_ID%22,%22customCurrency%22:%22%22,%22isCustomCurrency%22:false,%22customCurrencyType%22:%22id%22,%22customCurrencySymbolSpecifier%22:%22auto%22,%22amount%22:%22100%22,%22isMax%22:false}
+```
+
+For the docs, a link to the page and a quote of the incorrect text are enough.
 
 ::::
 
