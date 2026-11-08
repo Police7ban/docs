@@ -94,7 +94,7 @@ These tools and apps from the [xcm-tools](https://github.com/paraspell/xcm-tools
 
 ## Requirements 
 
-To keep the program focused on genuine human contributors, every bug report and fix must meet **all** of these requirements. Submissions that don't are closed without review.
+To keep the program focused on genuine human contributors and reproducible bugs, every bug report and fix must meet **all** of these requirements. Submissions that don't are closed without review.
 
 ::: details Minimal Contributor Requirements
 
@@ -112,6 +112,69 @@ To keep the program focused on genuine human contributors, every bug report and 
 Repeated low-effort, undisclosed-AI, or automated submissions will result in a permanent ban from the Bug Bounty Program.
 :::
 
+<div id="minimal-reproduction"></div>
+
+:::: details Minimal Reproduction for Bug Reports
+
+Every bug report must include a minimal reproduction. This is the smallest code snippet or API request that triggers the bug through ParaSpell's public interfaces. A reproduction lets us confirm the bug quickly and shows that real users can run into it. Reports without a minimal reproduction will be closed.
+
+Here are examples for the most common public interfaces:
+
+::: code-group
+
+```ts [XCM SDK Builder]
+import { Builder } from '@paraspell/sdk'
+
+const tx = await Builder()
+  .from('Acala')
+  .to('Astar')
+  .currency({ location: LOCATION, amount: AMOUNT })
+  .sender(SENDER_ADDRESS)
+  .recipient(RECIPIENT_ADDRESS)
+  .build()
+
+// Expected: a valid transaction is returned
+// Actual: throws UnhandledError: <full error message>
+```
+
+```bash [XCM API]
+curl https://api.paraspell.xyz/v2/chains/Hydration/para-id
+
+# Expected: 2034
+# Actual: 500 Internal Server Error
+```
+
+```ts [Public Function]
+import { getAssetsObject } from '@paraspell/sdk'
+
+const assets = getAssetsObject('Acala')
+
+// Expected: <the result described in the docs>
+// Actual: throws <full error message> / returns <the incorrect value>
+```
+
+:::
+
+A good reproduction:
+
+- **Is complete.** Please replace placeholders such as `LOCATION` and `AMOUNT` with the exact values you used, so that we can run it ourselves. For XCM API calls, include the full URL and any request body. Your own addresses can stay as placeholders unless the bug depends on them.
+- **Uses only public interfaces.** These are the Builder, the XCM API endpoints and the functions described in this documentation.
+- **Names the version.** For npm packages, include the package name and the exact version you installed, as shown in your lockfile.
+- **Shows the expected and actual result.** Include the full error message or the incorrect value, and describe what you expected instead.
+- **Is minimal.** Leave out anything that isn't needed to trigger the bug.
+
+The following are not accepted as a minimal reproduction:
+
+- A description of the bug in words only, without code or a request that triggers it.
+- Code that calls internal functions directly, for example from the generated JS bundle or from files that the package doesn't export.
+- A new unit test (for example in Vitest) that triggers an error that can't occur through the public interfaces.
+
+If you found the bug by reading internal code, please still reproduce it through a public interface. You're welcome to mention the internal function you think causes it.
+
+Bugs in the XCM Playground and errors in the docs can't always be shown in code. For the Playground, please list the exact steps and inputs that trigger the bug, and add a screenshot or a short screen recording. For the docs, a link to the page and a quote of the incorrect text are enough.
+
+::::
+
 
 ## Report a bug
 
@@ -121,7 +184,8 @@ Please don't open a public issue for 🔴 Critical bugs such as security vulnera
 
 1. Open an [issue in the repository](https://github.com/paraspell/xcm-tools/issues) and select `Bug bounty report`.
 2. Please fill in every section of the issue template and keep the sections as they are. Issues that don't follow the template will be closed. Reports that don't meet every point of the Contributor Eligibility checklist won't receive a reward.
-3. Submit the issue. Maintainers review it and assign a severity level. Once they confirm the bug, they add the "Confirmed bug 🪲" label, which opens the issue for reservation.
+3. Include a [minimal reproduction](#minimal-reproduction). Issues without one will be closed.
+4. Submit the issue. Maintainers review it and assign a severity level. Once they confirm the bug, they add the "Confirmed bug 🪲" label, which opens the issue for reservation.
 
 ### Rewards for reports
 
